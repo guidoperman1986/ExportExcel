@@ -1,3 +1,9 @@
+# Installation
+
+Step 1: npm install xlsx --save
+Step 2: npm install --save bootstrap
+Step 3: add @import '~bootstrap/dist/css/bootstrap.min.css'; to styles.css
+
 # ExcelImport
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.4.
