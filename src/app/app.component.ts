@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';  
 import * as XLSX from 'xlsx';  
+import { CsvService } from './services/csv.service';
 @Component({  
   selector: 'app-root',  
   templateUrl: './app.component.html',  
@@ -7,13 +8,8 @@ import * as XLSX from 'xlsx';
 })  
 export class AppComponent {  
   @ViewChild('TABLE', { static: false }) TABLE: ElementRef;  
-  title = 'Excel';  
-  ExportTOExcel() {  
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);  
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();  
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
-    XLSX.writeFile(wb, 'ScoreSheet.xlsx');  
-  }  
+  title = 'Excel and Csv';   
+
   team: any = [{  
     Sno: 1,  
     Team: 'India',  
@@ -92,4 +88,17 @@ export class AppComponent {
   
   }  
   ];  
+
+  constructor(private csvService:CsvService){}
+
+  ExportTOExcel() {  
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);  
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();  
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  
+    XLSX.writeFile(wb, 'ScoreSheet.xlsx');  
+  }  
+
+  ExportTOCsv(){
+    this.csvService.downloadFile(this.team, 'jsontocsv');
+  }
 }  
